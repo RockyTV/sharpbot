@@ -185,7 +185,14 @@ namespace sharpbot
 
         public static void SendMessage(string message, string channel)
         {
-            client.Channels[channel].SendMessage(message);
+            if (channel.StartsWith("#"))
+            {
+                client.Channels[channel].SendMessage(message);
+            }
+            else
+            {
+                SendPrivateMessage(message, channel);
+            }
         }
 
         public static void SendPrivateMessage(string message, string user)
