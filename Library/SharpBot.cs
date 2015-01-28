@@ -32,6 +32,7 @@ namespace sharpbot
             Channels = new List<string>();
 
             Client.RawMessageRecieved += RawMessageReceived;
+            Client.RawMessageSent += RawMessageSent;
             Client.ConnectionComplete += ConnectionComplete;
             Client.ChannelMessageRecieved += ChannelMessageReceived;
             Client.UserMessageRecieved += UserMessageReceived;
@@ -65,13 +66,27 @@ namespace sharpbot
         {
             if (!args.Message.Contains("PRIVMSG"))
             {
-                Logger.Message(args.Message);
+                if (args.Message.Contains("PONG"))
+                {
+                    Logger.Message(string.Format("PONG reply from {0} {1}", args.Message.Substring(1, args.Message.IndexOf(" ") - 1), args.Message.Substring(args.Message.LastIndexOf(":"))));
+                }
+                else
+                {
+                    Logger.Message(args.Message);
+                }
             }
         }
 
         private static void RawMessageSent(object sender, RawMessageEventArgs args)
         {
-            Logger.Message(args.Message);
+            if (!args.Message.Contains("PING"))
+            {
+                Logger.Message(string.Format("SENT {0}", args.Message));
+            }
+            else
+            {
+                Logger.Message(string.Format("Sent PING request {0}", args.Message.Substring(args.Message.LastIndexOf(":"))));
+            }
         }
 
         private static void UserMessageReceived(object sender, PrivateMessageEventArgs args)
