@@ -46,6 +46,8 @@
   <ItemGroup>
     <Compile Include="HelloModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TimeModule.cs" />
+    <Compile Include="TriviaModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Library\sharpbot.csproj">

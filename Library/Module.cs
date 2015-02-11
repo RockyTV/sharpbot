@@ -11,7 +11,7 @@ namespace sharpbot
         void OnMessageReceived(string sender, string receivedMessage, string channel);
     }
 
-    public abstract class Module : IModule
+    public abstract class PluginModule : IModule
     {
         public virtual void OnUserJoin(string user, string channel) { }
         public virtual void OnUserLeave(string user, string channel) { }

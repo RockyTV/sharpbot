@@ -27,7 +27,7 @@ namespace sharpbot
             Server = server;
             Nick = nick;
             User = new IrcUser(Nick, "sharpbot", Password, "sharpbot");
-            Client = new IrcClient(Server, User);
+            Client = new IrcClient(Server, User, false, false);
 
             Channels = new List<string>();
 
@@ -58,7 +58,14 @@ namespace sharpbot
         private static void ChannelMessageReceived(object sender, PrivateMessageEventArgs args)
         {
             Logger.Log(string.Format("{0}: <{1}> {2}", args.PrivateMessage.Source, args.PrivateMessage.User.Nick, args.PrivateMessage.Message));
-            Logger.WriteChannelLog(args.PrivateMessage.User.Nick, args.PrivateMessage.Message, args.PrivateMessage.Source);
+            if (IsUser(args.PrivateMessage.Source))
+            {
+                Logger.WriteChannelLog(args.PrivateMessage.User.Nick, args.PrivateMessage.Message, args.PrivateMessage.User.Nick);
+            }
+            else
+            {
+                Logger.WriteChannelLog(args.PrivateMessage.User.Nick, args.PrivateMessage.Message, args.PrivateMessage.Source);
+            }
             ModuleHandler.OnMessageReceived(args.PrivateMessage.User.Nick, args.PrivateMessage.Message, args.PrivateMessage.Source);
         }
 
@@ -114,6 +121,11 @@ namespace sharpbot
                 Logger.WriteChannelLog(args.User.Nick, "has left the channel", args.Channel.Name);
                 ModuleHandler.OnUserLeave(args.User.Nick, args.Channel.Name);
             }
+        }
+
+        private static bool IsUser(string channel)
+        {
+            return channel.StartsWith("#");
         }
     }
 }

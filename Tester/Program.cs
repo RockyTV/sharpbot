@@ -14,7 +14,7 @@ class Program
         Console.Title = "sharpbot";
         SharpBot bot = new SharpBot("irc.esper.net", "testbot", "");
         bot.Channels.Add("#rockytv");
-        bot.Channels.Add("#dmp");
+        //bot.Channels.Add("#dmp");
 
         bot.Client.ConnectAsync();
 

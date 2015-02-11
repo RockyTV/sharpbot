@@ -9,7 +9,7 @@ using sharpbot.Utils;
 
 namespace botmodules
 {
-    public class HelloModule : Module
+    public class HelloModule : PluginModule
     {
         public override void OnMessageReceived(string sender, string message, string channel)
         {
@@ -33,7 +33,7 @@ namespace botmodules
         }
     }
 
-    public class AdminCommands : Module
+    public class AdminCommands : PluginModule
     {
         public override void OnMessageReceived(string sender, string receivedMessage, string channel)
         {
@@ -49,7 +49,7 @@ namespace botmodules
         }
     }
 
-    public class Botsnack : Module
+    public class Botsnack : PluginModule
     {
         public override void OnMessageReceived(string sender, string receivedMessage, string channel)
         {
@@ -70,7 +70,7 @@ namespace botmodules
         }
     }
 
-    public class Ackbar : Module
+    public class Ackbar : PluginModule
     {
         static string[] ackbars = new string[]
         {
